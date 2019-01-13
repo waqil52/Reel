@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "909855307831",
+    "firebase_url": "https://reelbackup-c8186.firebaseio.com",
+    "project_id": "reelbackup-c8186",
+    "storage_bucket": "reelbackup-c8186.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909855307831:android:c76c8b77a9145485",
+        "android_client_info": {
+          "package_name": "com.example.user.movie_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909855307831-i2ljncpnhtdm0i4gafcipunnqrd3r3pf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.movie_project",
+            "certificate_hash": "c43e1dc981e14434f76d1d01aee6a5bade2bde7b"
+          }
+        },
+        {
+          "client_id": "909855307831-cvffgrpmv2u23abf04qpa5v84pehr4g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD76Dc1pQduBOR5mQQz4Qcun7UyKYNFpVw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909855307831-cvffgrpmv2u23abf04qpa5v84pehr4g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
