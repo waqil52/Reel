@@ -11,11 +11,12 @@ public class GenresResponse {
     @Expose
     private List<Genre> genres;
 
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
     public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
 }
