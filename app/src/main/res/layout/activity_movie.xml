@@ -98,6 +98,10 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/summaryLabel" />
 
+
+
+
+
             <RatingBar
                 android:id="@+id/movieDetailsRating"
                 style="@style/Widget.AppCompat.RatingBar.Small"

@@ -1,8 +1,12 @@
 package com.example.user.movie_project;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private String sortBy = MoviesRepository.POPULAR;
     private RecyclerView moviesList;
@@ -22,6 +26,9 @@ public class MainActivity extends AppCompatActivity  {
     private MoviesRepository moviesRepository;
 
     private List<Genre> movieGenres;
+
+    private DrawerLayout mDrawerLayout;
+
 
     private boolean isFetchingMovies;
     private int currentPage = 1;
@@ -33,6 +40,34 @@ public class MainActivity extends AppCompatActivity  {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        switch (menuItem.getItemId()) {
+
+                            case R.id.movie: {
+                                Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                //do somthing
+                                break;
+                            }
+                        }
+                        //close navigation drawer
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
+
+
 
         moviesRepository = MoviesRepository.getInstance();
 
@@ -55,10 +90,15 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.sort:
                 showSortMenu();
                 return true;
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     private void showSortMenu() {
         PopupMenu sortMenu = new PopupMenu(this, findViewById(R.id.sort));
