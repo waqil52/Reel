@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,7 +31,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
 
-
     public void clearMovies() {
         movies.clear();
         notifyDataSetChanged();
@@ -39,7 +39,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         movies.addAll(moviesToAppend);
         notifyDataSetChanged();
     }
-
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,22 +62,77 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView rating;
         TextView genres;
         ImageView poster;
+        ImageView imageView;
+        ImageView imageView1;
         Movie movie;
+        ToggleButton fav;
+        TextView textView2;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
+            textView2=itemView.findViewById(R.id.textView2);
             releaseDate = itemView.findViewById(R.id.item_movie_release_date);
             title = itemView.findViewById(R.id.item_movie_title);
             rating = itemView.findViewById(R.id.item_movie_rating);
             genres = itemView.findViewById(R.id.item_movie_genre);
             poster = itemView.findViewById(R.id.item_movie_poster);
+            imageView= itemView.findViewById(R.id.imageView);
+            imageView1= itemView.findViewById(R.id.imageView1);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   // callback.onClick(movie);
+                        imageView1.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.GONE);
+
+                }
+            });
+            imageView1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView1.setVisibility(View.GONE);
+                }
+            });
+            textView2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     callback.onClick(movie);
                 }
             });
+            releaseDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(movie);
+                }
+            });
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(movie);
+                }
+            });
+            rating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(movie);
+                }
+            });
+            genres.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(movie);
+                }
+            });
+            poster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(movie);
+                }
+            });
+
         }
 
 

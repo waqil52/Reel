@@ -2,16 +2,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/movie"
-
             android:title="Movie" />
         <item
-            android:id="@+id/nav_gallery"
-            android:title="kangi magi" />
+            android:id="@+id/favourites"
+            android:title="Favourites" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="kangi magi" />
+            android:id="@+id/localmovie"
+            android:title="Local Movie" />
         <item
-            android:id="@+id/nav_manage"
-            android:title="kangi magi" />
+            android:id="@+id/hallnearme"
+            android:title="Hall Near Me" />
     </group>
 </menu>

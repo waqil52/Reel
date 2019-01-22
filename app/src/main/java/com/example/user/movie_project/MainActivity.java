@@ -56,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
 
                             case R.id.movie: {
-                                Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
-                                //do somthing
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                startActivity(intent);
+
                                 break;
                             }
                         }

@@ -1,7 +1,5 @@
 package com.example.user.movie_project;
 
-import android.support.annotation.NonNull;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -9,7 +7,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MoviesRepository {
-
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String LANGUAGE = "en-US";
@@ -47,7 +44,7 @@ public class MoviesRepository {
                 .enqueue(new Callback<Movie>() {
                     @Override
                     public void onResponse(Call<Movie> call, Response<Movie> response) {
-                        if (response.isSuccessful()) {
+                       if (response.isSuccessful()) {
                             Movie movie = response.body();
                             if (movie != null) {
                                 callback.onSuccess(movie);
