@@ -62,6 +62,28 @@ public class MainActivity extends AppCompatActivity {
 
                                 break;
                             }
+                            case R.id.cinemanearme: {
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+
+                            case R.id.forum: {
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, BlogActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+                            case R.id.favourites: {
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, FavouritesActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
                         }
                         //close navigation drawer
                         mDrawerLayout.closeDrawer(GravityCompat.START);

@@ -1,8 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/movie"
-            android:title="Movie" />
+        android:id="@+id/movie"
+        android:title="Movie" />
+
+        <item
+            android:id="@+id/profile"
+            android:title="Profile" />
+
         <item
             android:id="@+id/favourites"
             android:title="Favourites" />
@@ -10,7 +15,13 @@
             android:id="@+id/localmovie"
             android:title="Local Movie" />
         <item
-            android:id="@+id/hallnearme"
-            android:title="Hall Near Me" />
+        android:id="@+id/cinemanearme"
+        android:title="Cinema Hall Near Me" />
+
+        <item
+            android:id="@+id/forum"
+            android:title="Community" />
+
+
     </group>
 </menu>

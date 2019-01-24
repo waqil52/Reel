@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
+    public static String user;
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //method for user login
     private void userLogin(){
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
 
@@ -95,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //if the task is successfull
                         if(task.isSuccessful()){
                             //start the profile activity
+                            user = email;
                             finish();
                             startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
                         }

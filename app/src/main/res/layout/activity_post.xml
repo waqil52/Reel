@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".PostActivity">
-    
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageselected"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/add_btn"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:background="@color/ash"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:layout_below="@id/imageselected"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:padding="10dp"
-        android:background="@drawable/input_outline"
-        android:hint="movie name: "
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/description"
-        android:inputType="textMultiLine"
-        android:layout_below="@id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:padding="10dp"
-        android:hint="post description"
-        android:background="@drawable/input_outline"
-        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <!-- bla bla bla-->
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/add_btn" />
 
-    <Button
-        android:id="@+id/buttonpost"
-        android:layout_width="236dp"
-        android:layout_height="59dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary"
-        android:text="POST"
-        android:hint="Post"
-        android:textColor="@color/white" />
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_outline"
+            android:hint="Enter Movie Name..."
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:singleLine="true"
+            android:padding="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/edit_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_outline"
+            android:hint="Post Movie Description..."
+            android:padding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+        <Button
+            android:id="@+id/id_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Post"
+            android:textSize="15sp"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffff"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            />
+
+    </LinearLayout>
+</ScrollView>

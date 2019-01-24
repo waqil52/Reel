@@ -22,19 +22,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private List<Genre> allGenres;
     private OnMoviesClickCallback callback;
 
-
-
     public MoviesAdapter(List<Movie> movies, List<Genre> allGenres,OnMoviesClickCallback callback) {
         this.callback = callback;
         this.movies = movies;
         this.allGenres = allGenres;
     }
 
-
     public void clearMovies() {
         movies.clear();
         notifyDataSetChanged();
     }
+
     public void appendMovies(List<Movie> moviesToAppend) {
         movies.addAll(moviesToAppend);
         notifyDataSetChanged();
@@ -79,6 +77,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             imageView= itemView.findViewById(R.id.imageView);
             imageView1= itemView.findViewById(R.id.imageView1);
 
+//            DatabaseReference def = FirebaseDatabase.getInstance().getReference();
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,6 +85,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                    // callback.onClick(movie);
                         imageView1.setVisibility(View.VISIBLE);
                         imageView.setVisibility(View.GONE);
+//                        Movie m = movies.get(getAdapterPosition());
+//                                DatabaseReference def = FirebaseDatabase.getInstance().getReference();
+//                                def.child(LoginActivity.user).child("fav").push().setValue(m);
+
 
                 }
             });
