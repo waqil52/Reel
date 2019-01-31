@@ -3,6 +3,8 @@
     package="com.example.user.movie_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!--
@@ -21,9 +23,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MapsActivity" />
         <activity android:name=".MovieActivity" />
-        <activity android:name=".Profile_Activity" />
+        <activity android:name=".Profile_Activity"
+            />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -40,8 +52,10 @@
         </activity>
         <activity
             android:name=".SignupActivity"
-            android:label="@string/app_name" />
-        <activity android:name=".PostActivity" />
+            android:label="@string/app_name"
+           />
+        <activity android:name=".PostActivity"
+            android:label="Post"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -55,8 +69,12 @@
             android:value="AIzaSyBg_DDx-7UJJ3SB3ORoAHhez4HTXyGaCJg" />
 
         <activity android:name=".BlogActivity" />
-        <activity android:name=".FavouritesActivity" />
-        <activity android:name=".Post_inner_part"></activity>
+        <activity android:name=".FavouritesActivity"
+            android:label="Favourites"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ActivityBlogPage"
+            android:label="@string/blog"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

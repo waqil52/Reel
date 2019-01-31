@@ -7,5 +7,6 @@
     <string name="now_playing">Now Playing</string>
     <string name="failed">failed</string>
     <string name="title_activity_maps">Map</string>
+    <string name="blog">Forum</string>
 
 </resources>

@@ -3,9 +3,15 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#FF1744</color>
-    <color name="white">#FFFFFF</color>
     <color name="ash">#455A64</color>
-    <color name="teal">#00796B</color>
-    <color name="brown">#5D4037</color>
+    <color name="gray">#37474e</color>
+    <color name="teal">#77ede8</color>
+    <color name="brown">#611700</color>
+    <color name="white">#FFFF</color>
+    <color name="colorPrimary1">#3F51B5</color>
+    <color name="colorPrimaryDark1">#303F9F</color>
+    <color name="colorAccent1">#FF4081</color>
+
+    <color name="signupColor">#014516</color>
 
 </resources>

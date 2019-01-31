@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +21,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private String IMG_BASE_URL = "http://image.tmdb.org/t/p/w500";
     private List<Movie> movies;
     private List<Genre> allGenres;
+    private String username;
     private OnMoviesClickCallback callback;
+    private String key;
 
-    public MoviesAdapter(List<Movie> movies, List<Genre> allGenres,OnMoviesClickCallback callback) {
+    public MoviesAdapter(List<Movie> movies, List<Genre> allGenres,OnMoviesClickCallback callback,String favMovies) {
         this.callback = callback;
         this.movies = movies;
         this.allGenres = allGenres;
+        this.username = favMovies;
     }
+
 
     public void clearMovies() {
         movies.clear();
@@ -63,7 +68,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         ImageView imageView;
         ImageView imageView1;
         Movie movie;
-        ToggleButton fav;
+
         TextView textView2;
 
         public MovieViewHolder(View itemView) {
@@ -77,7 +82,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             imageView= itemView.findViewById(R.id.imageView);
             imageView1= itemView.findViewById(R.id.imageView1);
 
-//            DatabaseReference def = FirebaseDatabase.getInstance().getReference();
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,13 +89,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                    // callback.onClick(movie);
                         imageView1.setVisibility(View.VISIBLE);
                         imageView.setVisibility(View.GONE);
-//                        Movie m = movies.get(getAdapterPosition());
-//                                DatabaseReference def = FirebaseDatabase.getInstance().getReference();
-//                                def.child(LoginActivity.user).child("fav").push().setValue(m);
+                        Movie m = movies.get(getAdapterPosition());
+                        DatabaseReference def = FirebaseDatabase.getInstance().getReference();
+
+                        String key=def.child("fav").child(username).push().getKey();
+                        def.child("fav").child(username).child(key).setValue(m);
+
 
 
                 }
             });
+
             imageView1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,6 +107,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                     imageView1.setVisibility(View.GONE);
                 }
             });
+
             textView2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -145,13 +154,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             title.setText(movie.getTitle());
             rating.setText(String.valueOf(movie.getRating()));
             genres.setText(getGenres(movie.getGenreIds()));
+            imageView.setVisibility(View.VISIBLE);
+            imageView1.setVisibility(View.GONE);
+
             Glide.with(itemView)
                     .load(IMG_BASE_URL + movie.getPosterPath())
                     .apply(RequestOptions.placeholderOf(R.color.colorPrimary))
                     .into(poster);
         }
 
-        private String getGenres(List<Integer> genreIds) {
+        public String getGenres(List<Integer> genreIds) {
             List<String> movieGenres = new ArrayList<>();
             for (Integer genreId : genreIds) {
                 for (Genre genre : allGenres) {

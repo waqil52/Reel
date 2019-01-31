@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private MoviesRepository moviesRepository;
 
     private List<Genre> movieGenres;
-
+    private ArrayList<Movie> favMovie = new ArrayList<>();
     private DrawerLayout mDrawerLayout;
 
 
     private boolean isFetchingMovies;
     private int currentPage = 1;
+    private FirebaseAuth firebaseAuth;
 
+
+    String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+         username = user.getEmail();
+         username = username.substring(0,username.length()-4);
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -62,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
                                 break;
                             }
+                            case R.id.profile: {
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, Profile_Activity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+
                             case R.id.cinemanearme: {
                                 //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
@@ -145,10 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         sortBy = MoviesRepository.UPCOMING;
                         getMovies(currentPage);
                         return true;
-                    case R.id.latest:
-                        sortBy = MoviesRepository.LATEST;
-                        getMovies(currentPage);
-                        return true;
+
                     case R.id.now_playing:
                         sortBy = MoviesRepository.NOW_PLAYING;
                         getMovies(currentPage);
@@ -183,35 +201,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getGenres() {
-        moviesRepository.getGenres(new OnGetGenresCallback() {
-            @Override
-            public void onSuccess(List<Genre> genres) {
-                movieGenres = genres;
-                getMovies(currentPage);
-            }
+                    moviesRepository.getGenres(new OnGetGenresCallback() {
+                        @Override
+                        public void onSuccess(List<Genre> genres) {
+                            movieGenres = genres;
+                            getMovies(currentPage);
+                        }
 
-            @Override
-            public void onError() {
-                showError();
-            }
-        });
-    }
-
-    private void getMovies(int page) {
-        isFetchingMovies = true;
-        moviesRepository.getMovies(page, sortBy, new OnGetMoviesCallback() {
-            @Override
-            public void onSuccess(int page, List<Movie> movies) {
-                if (adapter == null) {
-                    adapter = new MoviesAdapter(movies, movieGenres,callback);
-                    moviesList.setAdapter(adapter);
-                } else {
-                    if (page == 1) {
-                        adapter.clearMovies();
-                    }
-                    adapter.appendMovies(movies);
+                        @Override
+                        public void onError() {
+                            showError();
+                        }
+                    });
                 }
-                currentPage = page;
+
+                private void getMovies(int page) {
+                    isFetchingMovies = true;
+                    moviesRepository.getMovies(page, sortBy, new OnGetMoviesCallback() {
+                        @Override
+                        public void onSuccess(int page, List<Movie> movies) {
+                            if (adapter == null) {
+                                adapter = new MoviesAdapter(movies, movieGenres,callback,username);
+                                moviesList.setAdapter(adapter);
+                            } else {
+                                if (page == 1) {
+                                    adapter.clearMovies();
+                                }
+                                adapter.appendMovies(movies);
+                            }
+                            currentPage = page;
                 isFetchingMovies = false;
                 setTitle();
             }

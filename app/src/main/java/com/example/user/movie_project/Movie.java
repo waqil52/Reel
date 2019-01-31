@@ -39,6 +39,10 @@ public class Movie {
     @Expose
     private List<Genre> genres;
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+
 
     @SerializedName("genre_ids")
     @Expose
@@ -57,6 +61,14 @@ public class Movie {
     public String getTitle() {
 
         return title;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setTitle(String title)

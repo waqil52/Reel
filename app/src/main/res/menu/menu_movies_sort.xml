@@ -16,11 +16,7 @@
         android:enabled="true"
         android:title="Upcoming"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/latest"
-        android:enabled="true"
-        android:title="Latest"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/now_playing"
         android:enabled="true"

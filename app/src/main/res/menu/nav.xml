@@ -1,26 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        >
         <item
         android:id="@+id/movie"
-        android:title="Movie" />
+        android:title="Movie"
+            android:icon="@drawable/movie"
+
+            />
 
         <item
             android:id="@+id/profile"
-            android:title="Profile" />
+            android:title="Profile"
+            android:icon="@drawable/profile"/>
 
         <item
             android:id="@+id/favourites"
-            android:title="Favourites" />
+            android:title="Favourites"
+            android:icon="@drawable/favourite"/>
         <item
             android:id="@+id/localmovie"
-            android:title="Local Movie" />
+            android:title="Local Movie"
+            android:icon="@drawable/local"/>
         <item
         android:id="@+id/cinemanearme"
-        android:title="Cinema Hall Near Me" />
+        android:title="Cinema Hall Near Me"
+            android:icon="@drawable/map"/>
 
         <item
             android:id="@+id/forum"
-            android:title="Community" />
+            android:title="Community"
+            android:icon="@drawable/community"/>
 
 
     </group>

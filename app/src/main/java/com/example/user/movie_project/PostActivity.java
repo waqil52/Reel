@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -20,97 +24,96 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class PostActivity extends AppCompatActivity {
-    private ImageButton imageButton;
-    private EditText mMovTitle;
-    private EditText mMovDesc;
-    private Button mSubmitButton;
 
-    private StorageReference mStorage;
-    private DatabaseReference mDatabase;
-    private DatabaseReference newPost;
+    private ImageButton mSelectImage;
+    private static final int GALLERY_REQUEST = 1;
+
+    private Uri imageUri = null;
+    private EditText mPostTitle;
+    private EditText mPostDesc;
+
+    private Button mSubmitBtn;
+
     private ProgressDialog mProgress;
 
-    private static final int gallary_request = 1;
-    private Uri imageUri = null;
-
-    private String downloadUrl;
+    private StorageReference mStorageReference;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("blog");
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("blog");
 
-        imageButton = (ImageButton)findViewById(R.id.imageButton1);
-        mMovTitle = (EditText)findViewById(R.id.edit_text);
-        mMovDesc = (EditText) findViewById(R.id.edit_text2);
-        mSubmitButton = (Button)findViewById(R.id.id_submit);
+
+        mSelectImage = findViewById(R.id.imageButton1);
+        mPostTitle = findViewById(R.id.edit_text);
+        mPostDesc = findViewById(R.id.edit_text2);
+        mSubmitBtn = findViewById(R.id.id_submit);
+
+
 
         mProgress = new ProgressDialog(this);
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent gallaryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                gallaryIntent.setType("image/*");
-                startActivityForResult(gallaryIntent, gallary_request);
+            public void onClick(View view) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent,GALLERY_REQUEST);
             }
         });
-
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startPosting();
-            }
-        });
-    }
-
-    private void startPosting() {
-        mProgress.setMessage("Posting ...");
-
-
-        final String title = mMovTitle.getText().toString().trim();
-        final String description = mMovDesc.getText().toString().trim();
-
-        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description) && imageUri != null){
-            mProgress.show();
-            final StorageReference filePath = mStorage.child("Blog Images").child("KK");
-
-            filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //String downloadUrl;
-
-
-//                    newPost = mDatabase.push();
-//                    newPost.child("Title").setValue(title);
-//                    newPost.child("Description").setValue(description);
-//                    //newPost.child("Image").setValue(downloadUrl);
-//                    mStorage.child("Blog Images").child("jkj").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Uri> task) {
-//                            //downloadUrl = task.getResult().toString();
-////                            newPost.child("Image").setValue(task.getResult().toString());
-//                        }
-//                    });
-
-                    mProgress.dismiss();
-
-                    startActivity(new Intent(PostActivity.this, BlogActivity.class));
-                }
-            });
-        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == gallary_request && resultCode == RESULT_OK){
+        if(requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             imageUri = data.getData();
-            imageButton.setImageURI(imageUri);
+            mSelectImage.setImageURI(imageUri);
+        }
+    }
+
+    public void startPosting(final View view) {
+        mProgress.setMessage("Posting to Blog...");
+        final String title = mPostTitle.getText().toString().trim();
+        final String desc = mPostDesc.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(desc) && imageUri != null) {
+            mProgress.show();
+            final StorageReference filepath = mStorageReference.child("Blog").child(imageUri.getLastPathSegment());
+            filepath.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return filepath.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+
+                        DatabaseReference newPost = mDatabaseReference.push();
+
+                        newPost.child("title").setValue(title);
+                        newPost.child("description").setValue(desc);
+                        newPost.child("image").setValue(downloadUri.toString());
+
+                        mProgress.dismiss();
+
+                        Snackbar.make(view.getRootView(), "Successfully Posted", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                    }
+                }
+            });
         }
     }
 }

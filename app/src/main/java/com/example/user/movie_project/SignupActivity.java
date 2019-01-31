@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,11 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     //defining view objects
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private Button buttonSignup;
-
-    private TextView textViewSignin;
+    private ImageView reelgif2;
+    private ImageView signup2;
+    private EditText emailtext2;
+    private EditText passwordtext2;
+    private Button signupbutton2;
+    private Button loginbutton2;
 
     private ProgressDialog progressDialog;
 
@@ -51,24 +52,34 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         //initializing views
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+//        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+//        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+//        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+//
+//        buttonSignup = (Button) findViewById(R.id.buttonSignup);
 
-        buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        reelgif2=(ImageView) findViewById(R.id.reelgif2);
+        signup2=(ImageView) findViewById(R.id.signupimage2);
 
-        progressDialog = new ProgressDialog(this);
+        emailtext2=(EditText) findViewById(R.id.email2);
+        passwordtext2=(EditText) findViewById(R.id.password2);
+
+        loginbutton2=(Button) findViewById(R.id.login2);
+        signupbutton2=(Button) findViewById(R.id.signup);
+
 
         //attaching listener to button
-        buttonSignup.setOnClickListener(this);
-        textViewSignin.setOnClickListener(this);
+        signupbutton2.setOnClickListener(this);
+        loginbutton2.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
     }
 
     private void registerUser(){
 
         //getting email and password from edit texts
-        String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
+        String email = emailtext2.getText().toString().trim();
+        String password  = passwordtext2.getText().toString().trim();
 
         //checking if email and passwords are empty
         if(TextUtils.isEmpty(email)){
@@ -109,11 +120,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
 
-        if(view == buttonSignup){
+        if(view == signupbutton2){
             registerUser();
         }
 
-        if(view == textViewSignin){
+        if(view == loginbutton2){
             //open login activity when user taps on the already registered textview
             startActivity(new Intent(this, LoginActivity.class));
         }

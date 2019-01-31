@@ -19,6 +19,7 @@ public class Profile_Activity extends AppCompatActivity {
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private Button buttonContinue;
+    private Button buttonFav;
 
 
     @Override
@@ -45,6 +46,7 @@ public class Profile_Activity extends AppCompatActivity {
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonContinue = (Button) findViewById(R.id.buttonContinue);
+        buttonFav = (Button) findViewById(R.id.buttonFav);
 
         //displaying logged in user name
         textViewUserEmail.setText("Welcome "+user.getEmail());
@@ -65,6 +67,12 @@ public class Profile_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Profile_Activity.this,MainActivity.class));
+            }
+        });
+        buttonFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile_Activity.this,FavouritesActivity.class));
             }
         });
 
