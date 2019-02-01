@@ -108,8 +108,14 @@ public class PostActivity extends AppCompatActivity {
 
                         mProgress.dismiss();
 
+
+
                         Snackbar.make(view.getRootView(), "Successfully Posted", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+
+                        Intent intent = null;
+                        intent = new Intent(PostActivity.this,BlogActivity.class);
+                        startActivity(intent);
 
                     }
                 }

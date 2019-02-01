@@ -91,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
 
+                            case R.id.localmovie: {
+                                //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, localMainActivity.class);
+                                startActivity(intent);
+
+                                break;
+                            }
+
                             case R.id.forum: {
                                 //Toast.makeText(MainActivity.this,"iiii",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, BlogActivity.class);
@@ -260,9 +268,7 @@ public class MainActivity extends AppCompatActivity {
             case MoviesRepository.UPCOMING:
                 setTitle(getString(R.string.upcoming));
                 break;
-            case MoviesRepository.LATEST:
-                setTitle(getString(R.string.latest));
-                break;
+
             case MoviesRepository.NOW_PLAYING:
                 setTitle(getString(R.string.now_playing));
                 break;
